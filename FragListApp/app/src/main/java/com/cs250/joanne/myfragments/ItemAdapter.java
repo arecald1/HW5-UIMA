@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -41,9 +43,19 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 
         // Now its like building a view for an activity
 
-        TextView whatView = (TextView) itemView.findViewById(R.id.detail);
-
+        TextView whatView = (TextView) itemView.findViewById(R.id.taskName);
         whatView.setText(it.getWhat());
+
+        Format dateFormatter = new SimpleDateFormat("MM-dd-yy");
+        TextView dateView = (TextView) itemView.findViewById(R.id.date);
+        if (it.getCompleted()) {
+            dateView.setText(dateFormatter.format(it.getCompleteDate()));
+        } else {
+            dateView.setText(dateFormatter.format(it.getDeadline()));
+        }
+
+        TextView categoryView = (TextView) itemView.findViewById(R.id.category);
+        categoryView.setText(it.getCategory());
 
 
         return itemView;

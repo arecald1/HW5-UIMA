@@ -1,17 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
+    android:layout_height="125dp"
     android:layout_width="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:weightSum="100">
 
     <TextView
-        android:id="@+id/detail"
+        android:id="@+id/taskName"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_width="0dp"
-        android:layout_weight="25"
-        android:textSize="18dp"
-        android:textColor="@color/colorPrimary"
-        android:paddingRight="10dp">
-    </TextView>
+        android:text="What to do"
+        android:textSize="40sp"
+        android:paddingStart="10dp"
+        android:layout_weight="40"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="60">
+
+        <TextView
+            android:id="@+id/date"
+            android:textSize="20sp"
+            android:text="3/20/21"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+        <TextView
+            android:id="@+id/category"
+            android:textSize="20sp"
+            android:text="CATEGORY"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+    </LinearLayout>
+
+
+
 
 </LinearLayout>

@@ -5,19 +5,12 @@
         <menu>
             <item
                 android:id="@+id/item_frag"
-                android:title="Add Item" />
+                android:title="To Do" />
             <item
                 android:id="@+id/list_frag"
-                android:title="Item List" />
+                android:title="Done" />
         </menu>
     </item>
-
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
-    </group>
 
 
 
