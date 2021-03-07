@@ -18,7 +18,10 @@
             android:textAlignment="center"
             android:text="Due:"
             android:textSize="30sp" />
-        <TextView android:id="@+id/task_date" android:text="mm/dd/yy" android:textSize="25sp"/>
+        <TextView
+            android:id="@+id/task_date"
+            android:text="mm/dd/yy"
+            android:textSize="25sp"/>
     </TableRow>
     <TableRow android:gravity="center_horizontal">
         <Button android:id="@+id/mark_complete_btn" android:text="Mark Complete"/>
