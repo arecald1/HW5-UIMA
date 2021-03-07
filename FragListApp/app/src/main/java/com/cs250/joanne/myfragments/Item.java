@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class Item {
     private String what;
-    private String category = "category";
+    private String category;
     private boolean completed;
     private Date deadline;
     private Date dateCompleted;
