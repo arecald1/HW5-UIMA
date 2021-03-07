@@ -18,8 +18,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     // These are all here for demonstration purposes but we probably only need the ArrayList in main(?)
-    private Fragment item;
-    private Fragment list;
+    protected Fragment item;
+    protected Fragment list;
     private FragmentTransaction transaction;
     protected ItemAdapter aa;
     protected ArrayList<Item> myItems; // Protected so it has package access (our fragments can access it as well)
@@ -120,6 +120,8 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
 
 
