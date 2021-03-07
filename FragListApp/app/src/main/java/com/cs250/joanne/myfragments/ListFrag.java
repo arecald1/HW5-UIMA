@@ -55,6 +55,7 @@ public class ListFrag extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Snackbar.make(view, "Selected #" + id, Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
+                                                                                                    //Add here to show expanded task card
             }
         });
 

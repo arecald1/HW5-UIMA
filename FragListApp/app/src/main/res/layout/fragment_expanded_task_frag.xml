@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center_vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".expandedTaskFrag"
+    android:weightSum="100">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TableRow android:gravity="center_horizontal">
+        <TextView android:text="Task Name" android:textSize="30sp"/>
+    </TableRow>
+    <TableRow android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:textAlignment="center"
+            android:text="Due:"
+            android:textSize="30sp" />
+        <TextView android:id="@+id/task_date" android:text="mm/dd/yy" android:textSize="25sp"/>
+    </TableRow>
+    <TableRow android:gravity="center_horizontal">
+        <Button android:id="@+id/mark_complete_btn" android:text="Mark Complete"/>
+    </TableRow>
+    <TableRow android:gravity="center_horizontal">
+        <TextView android:text="Category" android:textAlignment="center" android:textSize="30sp"/>
+    </TableRow>
+
+</TableLayout>
