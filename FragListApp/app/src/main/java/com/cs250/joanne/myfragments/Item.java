@@ -16,14 +16,16 @@ public class Item {
     private Date dateCompleted;
 
 
-    Item(String what) {
+    Item(String what, String category, Date deadline) {
         this.what = what;
+        this.category = category;
+        this.deadline = deadline;
     }
 
     public String getWhat() { return what; }
     public String getCategory() { return category; }
     public Boolean getCompleted() { return completed; }
-    public Date getDeadline() { return Calendar.getInstance().getTime(); }
+    public Date getDeadline() { return deadline; }
     public Date getCompleteDate() { return dateCompleted; }
 
 
