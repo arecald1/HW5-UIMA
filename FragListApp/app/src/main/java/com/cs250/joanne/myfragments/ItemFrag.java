@@ -1,14 +1,19 @@
 package com.cs250.joanne.myfragments;
 
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -26,10 +31,12 @@ public class ItemFrag extends Fragment {
     private TextView categoryView;
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
+    private FragmentTransaction transaction;
 
     private Date curDate;
 
-    private Button btn;
+    private Button save;
+    private Button cancel;
     private MainActivity myact;
 
     public ItemFrag() {
@@ -38,7 +45,7 @@ public class ItemFrag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        // Currently gives user empty fields to create a new task
         // Inflate the layout for this fragment - store the view so we can return it at the end of the
         // function
         View view = inflater.inflate(R.layout.item_frag, container, false);
@@ -73,21 +80,64 @@ public class ItemFrag extends Fragment {
         };
 
 
-        btn = (Button) view.findViewById(R.id.add_btn);
-        btn.setOnClickListener(new View.OnClickListener() {
+        save = (Button) view.findViewById(R.id.add_btn);
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // make object
-                Item myitem = new Item(taskView.getText().toString(), categoryView.getText().toString(), curDate);
-                //Then go from my activity to myItems and add the new object to the list
-                myact.myItems.add(myitem);
+                Item myItem;
+
+                // Check if category is blank and create object
+                if (categoryView.getText().toString().equals("")) {
+                    myItem = new Item(taskView.getText().toString(), new String("misc"), curDate);
+                } else {
+                    myItem = new Item(taskView.getText().toString(), categoryView.getText().toString(), curDate);
+                }
+
+                // Then go from my activity to myItems and add the new object to the list
+                myact.myItems.add(myItem);
+
+                // this portion is to get rid of an open keyboard once the "save" button is selected
+                View view = getActivity().getCurrentFocus();
+                hideKeyboardFrom(getActivity().getApplicationContext(), view);
+
                 // A toast then triggers everytime we add a new item
                 Toast.makeText(getActivity().getApplicationContext(), "added item", LENGTH_SHORT).show();
+
+                // This changes the fragment to the list fragment, still needs to properly change to the fragment that called it
+                transaction = myact.getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, myact.list);
+                transaction.addToBackStack(null);
+
+                // Commit the transaction
+                transaction.commit();
+            }
+        });
+
+
+        cancel = (Button) view.findViewById(R.id.cancel_btn);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Item myItem;
+
+                // A toast then triggers everytime we add a new item
+                Toast.makeText(getActivity().getApplicationContext(), "operation canceled", LENGTH_SHORT).show();
+                transaction = myact.getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, myact.list);
+                transaction.addToBackStack(null);
+
+                // Commit the transaction
+                transaction.commit();
+
             }
         });
 
         return view;
     }
 
+    public static void hideKeyboardFrom(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
 }
