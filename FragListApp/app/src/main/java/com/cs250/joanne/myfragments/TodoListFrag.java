@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class TodoListFrag extends Fragment {
@@ -38,7 +39,7 @@ public class TodoListFrag extends Fragment {
 
         // Inflate the layout for this fragment
         View myview = inflater.inflate(R.layout.list_frag, container, false);
-        ((MainActivity) getActivity()).setActionBarTitle("Current Tasks: ");
+        ((MainActivity) getActivity()).setActionBarTitle("Current Tasks");
 
         myact = (MainActivity) getActivity();
         cntx = getActivity().getApplicationContext();
@@ -122,7 +123,8 @@ public class TodoListFrag extends Fragment {
         // Resume any paused UI updates, threads, or processes required
         // by the Fragment but suspended when it became inactive.
 
-        myact.setActionBarTitle("Current Tasks: ");
+        myact.setActionBarTitle("Current Tasks");
+        Collections.sort(myact.myTasks, new TaskComparator());
     }
 
     // Called at the end of the active lifetime.
