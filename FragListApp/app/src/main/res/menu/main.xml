@@ -6,6 +6,5 @@
         android:id="@+id/add_task"
         android:icon="@drawable/plus"
         app:showAsAction="always"
-        android:title="add task"
-        tools:ignore="HardcodedText" />
+        android:title="@string/add_task"/>
 </menu>
