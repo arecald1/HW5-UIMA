@@ -122,7 +122,7 @@ public class TodoListFrag extends Fragment {
         // Resume any paused UI updates, threads, or processes required
         // by the Fragment but suspended when it became inactive.
 
-        ((MainActivity) getActivity()).setActionBarTitle("Current Tasks: ");
+        myact.setActionBarTitle("Current Tasks: ");
     }
 
     // Called at the end of the active lifetime.
