@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds Tasks to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -85,15 +85,24 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
+        // if the user clicked on the plus, take them to add new task screen
+        if (id == R.id.add_task) {
+            transaction = getSupportFragmentManager().beginTransaction();
+
+            // Replace whatever is in the fragment_container view with this fragment,
+            // and add the transaction to the back stack so the user can navigate back
+            transaction.replace(R.id.fragment_container, this.task);
+            transaction.addToBackStack(null);
+
+            // Commit the transaction
+            transaction.commit();
+
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -102,12 +111,12 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.item_frag) {
             transaction = getSupportFragmentManager().beginTransaction();
 
-// Replace whatever is in the fragment_container view with this fragment,
-// and add the transaction to the back stack so the user can navigate back
+            // Replace whatever is in the fragment_container view with this fragment,
+            // and add the transaction to the back stack so the user can navigate back
             transaction.replace(R.id.fragment_container, this.task);
             transaction.addToBackStack(null);
 
-// Commit the transaction
+            // Commit the transaction
             transaction.commit();
 
         } else if (id == R.id.list_frag) {
@@ -115,12 +124,12 @@ public class MainActivity extends AppCompatActivity
 
             transaction = getSupportFragmentManager().beginTransaction();
 
-// Replace whatever is in the fragment_container view with this fragment,
-// and add the transaction to the back stack so the user can navigate back
+            // Replace whatever is in the fragment_container view with this fragment,
+            // and add the transaction to the back stack so the user can navigate back
             transaction.replace(R.id.fragment_container, list);
             transaction.addToBackStack(null);
 
-// Commit the transaction
+            // Commit the transaction
             transaction.commit();
         }
 
