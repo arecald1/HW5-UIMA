@@ -9,12 +9,7 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Item List"
-        android:textColor="#df8713"
-        android:textStyle="bold|italic" />
+
 
     <ListView
         android:id="@+id/mylist"

@@ -38,6 +38,7 @@ public class TodoListFrag extends Fragment {
 
         // Inflate the layout for this fragment
         View myview = inflater.inflate(R.layout.list_frag, container, false);
+        ((MainActivity) getActivity()).setActionBarTitle("Current Tasks: ");
 
         myact = (MainActivity) getActivity();
         cntx = getActivity().getApplicationContext();
@@ -120,6 +121,8 @@ public class TodoListFrag extends Fragment {
         Log.d ("Other Fragment", "onResume");
         // Resume any paused UI updates, threads, or processes required
         // by the Fragment but suspended when it became inactive.
+
+        ((MainActivity) getActivity()).setActionBarTitle("Current Tasks: ");
     }
 
     // Called at the end of the active lifetime.

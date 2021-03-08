@@ -22,10 +22,14 @@ public class MainActivity extends AppCompatActivity
     protected Fragment list;
     private FragmentTransaction transaction;
     protected TaskAdapter aa;
-    protected ArrayList<Task> myTasks; // Protected so it has package access (our fragments can access it as well)
+    protected ArrayList<Task> myTasks;
+    protected ArrayList<Task> completedTasks; // Protected so it has package access (our fragments can access it as well)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        setTitle("MAIN ACTIVITY:");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -33,6 +37,7 @@ public class MainActivity extends AppCompatActivity
 
         // create ArrayList of Tasks
         myTasks = new ArrayList<Task>();
+        completedTasks = new ArrayList<Task>();
         // make array adapter to bind arraylist to listview with custom Task layout
         // we connect them here but we don't actually do anything past this here (because the main
         // interaction happens in our fragments
@@ -54,6 +59,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
 
     @Override
     public void onBackPressed() {
@@ -105,6 +111,8 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();
 
         } else if (id == R.id.list_frag) {
+            //getSupportActionBar().setTitle("Current Tasks:");
+
             transaction = getSupportFragmentManager().beginTransaction();
 
 // Replace whatever is in the fragment_container view with this fragment,
@@ -121,7 +129,15 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        setActionBarTitle("onResume");
+    }
 
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
+    }
 
 
 
