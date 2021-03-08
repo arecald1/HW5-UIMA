@@ -18,11 +18,11 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     // These are all here for demonstration purposes but we probably only need the ArrayList in main(?)
-    protected Fragment item;
+    protected Fragment task;
     protected Fragment list;
     private FragmentTransaction transaction;
-    protected ItemAdapter aa;
-    protected ArrayList<Item> myItems; // Protected so it has package access (our fragments can access it as well)
+    protected TaskAdapter aa;
+    protected ArrayList<Task> myTasks; // Protected so it has package access (our fragments can access it as well)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +31,12 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // create ArrayList of items
-        myItems = new ArrayList<Item>();
-        // make array adapter to bind arraylist to listview with custom item layout
+        // create ArrayList of Tasks
+        myTasks = new ArrayList<Task>();
+        // make array adapter to bind arraylist to listview with custom Task layout
         // we connect them here but we don't actually do anything past this here (because the main
         // interaction happens in our fragments
-        aa = new ItemAdapter(this, R.layout.item_layout, myItems);
+        aa = new TaskAdapter(this, R.layout.item_layout, myTasks);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -44,12 +44,12 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        // item and list are created from their respective constructors here
-        item = new ItemFrag();
-        list = new ListFrag();
+        // Task and list are created from their respective constructors here
+        task = new TaskFrag();
+        list = new TodoListFrag();
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, item).commit();
+                .add(R.id.fragment_container, task).commit();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the menu; this adds Tasks to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity
 
 // Replace whatever is in the fragment_container view with this fragment,
 // and add the transaction to the back stack so the user can navigate back
-            transaction.replace(R.id.fragment_container, this.item);
+            transaction.replace(R.id.fragment_container, this.task);
             transaction.addToBackStack(null);
 
 // Commit the transaction

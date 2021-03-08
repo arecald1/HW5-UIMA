@@ -22,12 +22,12 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 
 
-public class ListFrag extends Fragment {
+public class TodoListFrag extends Fragment {
 
     public static final int MENU_ITEM_EDITVIEW = Menu.FIRST;
     public static final int MENU_ITEM_DELETE = Menu.FIRST + 1;
 
-    private ListView myList;
+    private ListView myTask;
     private MainActivity myact;
 
     Context cntx;
@@ -43,15 +43,15 @@ public class ListFrag extends Fragment {
         cntx = getActivity().getApplicationContext();
 
         // Get the ListView
-        myList = (ListView) myview.findViewById(R.id.mylist);
+        myTask = (ListView) myview.findViewById(R.id.mylist);
         // connect listview to the array adapter in MainActivity (aa in MainActivity)
-        myList.setAdapter(myact.aa);
-        registerForContextMenu(myList); // Register this list for the context menu (long click functionality)
+        myTask.setAdapter(myact.aa);
+        registerForContextMenu(myTask); // Register this list for the context menu (long click functionality)
         // refresh view
         myact.aa.notifyDataSetChanged();
 
         // program a short click on the list item - mainly programming the snackbar
-        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        myTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Snackbar.make(view, "Selected #" + id, Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
@@ -93,7 +93,7 @@ public class ListFrag extends Fragment {
                 return false;
             }
             case MENU_ITEM_DELETE: {
-                myact.myItems.remove(index);
+                myact.myTasks.remove(index);
                 Toast.makeText(cntx, "job " + index + " deleted",
                         Toast.LENGTH_SHORT).show();
                 // refresh view

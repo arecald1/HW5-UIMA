@@ -17,48 +17,48 @@ import java.util.List;
  * So basically its how we build our view. It seems like the controller between the Item class
  * and the item_layout XML file
  */
-public class ItemAdapter extends ArrayAdapter<Item> {
+public class TaskAdapter extends ArrayAdapter<Task> {
 
     int resource;
 
-    public ItemAdapter(Context ctx, int res, List<Item> items)
+    public TaskAdapter(Context ctx, int res, List<Task> tasks)
     {
-        super(ctx, res, items);
+        super(ctx, res, tasks);
         resource = res;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LinearLayout itemView;
-        Item it = getItem(position);
+        LinearLayout taskView;
+        Task it = getItem(position);
 
         if (convertView == null) {
-            itemView = new LinearLayout(getContext());
+            taskView = new LinearLayout(getContext());
             String inflater = Context.LAYOUT_INFLATER_SERVICE;
             LayoutInflater vi = (LayoutInflater) getContext().getSystemService(inflater);
-            vi.inflate(resource, itemView, true);
+            vi.inflate(resource, taskView, true);
         } else {
-            itemView = (LinearLayout) convertView;
+            taskView = (LinearLayout) convertView;
         }
 
         // Now its like building a view for an activity
 
-        TextView whatView = (TextView) itemView.findViewById(R.id.taskName);
+        TextView whatView = (TextView) taskView.findViewById(R.id.taskName);
         whatView.setText(it.getWhat());
 
         Format dateFormatter = new SimpleDateFormat("MM-dd-yy");
-        TextView dateView = (TextView) itemView.findViewById(R.id.date);
+        TextView dateView = (TextView) taskView.findViewById(R.id.date);
         if (it.getCompleted()) {
             dateView.setText(dateFormatter.format(it.getCompleteDate()));
         } else {
             dateView.setText(dateFormatter.format(it.getDeadline()));
         }
 
-        TextView categoryView = (TextView) itemView.findViewById(R.id.category);
+        TextView categoryView = (TextView) taskView.findViewById(R.id.category);
         categoryView.setText(it.getCategory());
 
 
-        return itemView;
+        return taskView;
     }
 
 }

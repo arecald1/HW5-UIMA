@@ -25,7 +25,7 @@ import java.util.Date;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
-public class ItemFrag extends Fragment {
+public class TaskFrag extends Fragment {
 
     private TextView taskView;
     private TextView categoryView;
@@ -39,7 +39,7 @@ public class ItemFrag extends Fragment {
     private Button cancel;
     private MainActivity myact;
 
-    public ItemFrag() {
+    public TaskFrag() {
     }
 
     @Override
@@ -55,6 +55,7 @@ public class ItemFrag extends Fragment {
         taskView = (EditText) view.findViewById(R.id.item_text);
         categoryView = (EditText) view.findViewById(R.id.task_category);
 
+        // Set up date to produce an android date picker view
         mDisplayDate = (TextView) view.findViewById(R.id.task_date);
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,23 +85,23 @@ public class ItemFrag extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Item myItem;
+                Task myTask;
 
                 // Check if category is blank and create object
                 if (categoryView.getText().toString().equals("")) {
-                    myItem = new Item(taskView.getText().toString(), new String("misc"), curDate);
+                    myTask = new Task(taskView.getText().toString(), new String("misc"), curDate);
                 } else {
-                    myItem = new Item(taskView.getText().toString(), categoryView.getText().toString(), curDate);
+                    myTask = new Task(taskView.getText().toString(), categoryView.getText().toString(), curDate);
                 }
 
-                // Then go from my activity to myItems and add the new object to the list
-                myact.myItems.add(myItem);
+                // Then go from my activity to myTasks and add the new object to the list
+                myact.myTasks.add(myTask);
 
                 // this portion is to get rid of an open keyboard once the "save" button is selected
                 View view = getActivity().getCurrentFocus();
                 hideKeyboardFrom(getActivity().getApplicationContext(), view);
 
-                // A toast then triggers everytime we add a new item
+                // A toast then triggers everytime we add a new task
                 Toast.makeText(getActivity().getApplicationContext(), "added item", LENGTH_SHORT).show();
 
                 // This changes the fragment to the list fragment, still needs to properly change to the fragment that called it
@@ -118,9 +119,9 @@ public class ItemFrag extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Item myItem;
+                Task myTask;
 
-                // A toast then triggers everytime we add a new item
+                // A toast then triggers every time we add a new item
                 Toast.makeText(getActivity().getApplicationContext(), "operation canceled", LENGTH_SHORT).show();
                 transaction = myact.getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container, myact.list);

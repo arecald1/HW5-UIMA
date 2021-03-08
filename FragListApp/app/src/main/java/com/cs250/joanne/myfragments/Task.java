@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * Holds data for one task - straight forward simple little item class
  */
-public class Item {
+public class Task {
     private String what;
     private String category;
     private boolean completed;
@@ -16,7 +16,7 @@ public class Item {
     private Date dateCompleted;
 
 
-    Item(String what, String category, Date deadline) {
+    Task(String what, String category, Date deadline) {
         this.what = what;
         this.category = category;
         this.deadline = deadline;
