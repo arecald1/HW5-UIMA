@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity
         list = new TodoListFrag();
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, task).commit();
+                .add(R.id.fragment_container, list).commit();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);

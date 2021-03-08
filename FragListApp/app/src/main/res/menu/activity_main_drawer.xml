@@ -5,10 +5,10 @@
         <menu>
             <item
                 android:id="@+id/item_frag"
-                android:title="To Do" />
+                android:title="Add/Update (temp)" />
             <item
                 android:id="@+id/list_frag"
-                android:title="Done" />
+                android:title="@string/menu_todo" />
         </menu>
     </item>
 
