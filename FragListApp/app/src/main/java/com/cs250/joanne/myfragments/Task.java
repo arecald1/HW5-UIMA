@@ -1,6 +1,7 @@
 package com.cs250.joanne.myfragments;
 
 import java.lang.String;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,5 +36,8 @@ public class Task {
     public Date getDeadline() { return deadline; }
     public Date getCompleteDate() { return dateCompleted; }
 
-
+    public String dateToString(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yy");
+        return dateFormat.format(date);
+    }
 }

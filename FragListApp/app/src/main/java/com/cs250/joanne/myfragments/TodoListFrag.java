@@ -66,8 +66,12 @@ public class TodoListFrag extends Fragment {
                 Snackbar.make(view, "Selected #" + id, Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
 
+                Bundle bundle = new Bundle();
+                bundle.putInt("taskPosition", position);
+                expandedTask.setArguments(bundle);
+
                 transaction = getFragmentManager().beginTransaction();                      //Add here to show expanded task card
-                transaction.replace(R.id.fragment_container, expandedTask, "EXPANDTASK");
+                transaction.replace(R.id.fragment_container, expandedTask, "EXPANDTASK"); //send index as bundle and then use myacts.myTasks to access
                 transaction.addToBackStack("EXPANDTASK");
                 transaction.commit();
             }
@@ -119,7 +123,7 @@ public class TodoListFrag extends Fragment {
             case MENU_ITEM_COPY: {
                 Task copy = new Task(myact.myTasks.get(index));
                 myact.myTasks.add(copy);
-
+                // refresh view
                 myact.aa.notifyDataSetChanged();
                 return false;
             }
