@@ -9,20 +9,41 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TableRow android:gravity="center_horizontal">
-        <TextView android:id="@+id/expanded_task_name" android:text="Task Name" android:textSize="30sp"/>
+
+        <TextView
+            android:id="@+id/expanded_task_name"
+            android:text="Task Name"
+            android:textAlignment="center"
+            android:textSize="30sp" />
     </TableRow>
     <TableRow android:gravity="center_horizontal">
 
         <TextView
             android:layout_width="wrap_content"
-            android:textAlignment="center"
             android:text="Due:"
+            android:textAlignment="center"
             android:textSize="30sp" />
+
         <TextView
             android:id="@+id/expanded_due_date"
             android:text="mm/dd/yy"
+            android:textAlignment="center"
+            android:textSize="25sp" />
+    </TableRow>
+
+    <TableRow android:id="@+id/complete_row" android:gravity="center_horizontal" android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:textAlignment="center"
+            android:text="Done:"
+            android:textSize="30sp" />
+        <TextView
+            android:id="@+id/expanded_complete_date"
+            android:text="mm/dd/yy"
             android:textSize="25sp"/>
     </TableRow>
+
     <TableRow android:gravity="center_horizontal">
         <Button android:id="@+id/mark_complete_btn" android:text="Mark Complete"/>
     </TableRow>

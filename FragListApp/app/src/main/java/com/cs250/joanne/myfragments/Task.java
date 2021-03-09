@@ -36,6 +36,11 @@ public class Task {
     public Date getDeadline() { return deadline; }
     public Date getCompleteDate() { return dateCompleted; }
 
+    public void setComplete() {
+        this.completed = true;
+        dateCompleted = new Date();
+    }
+
     public String dateToString(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yy");
         return dateFormat.format(date);
