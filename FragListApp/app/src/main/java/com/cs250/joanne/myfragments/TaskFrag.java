@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -31,7 +33,7 @@ public class TaskFrag extends Fragment {
     private TextView categoryView;
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
-    private FragmentTransaction transaction;
+    //private FragmentTransaction transaction;
 
     private Date curDate;
 
@@ -87,6 +89,8 @@ public class TaskFrag extends Fragment {
             public void onClick(View v) {
                 Task myTask;
 
+                // Check all fields here with if statement and provide toast with error, and keep them on this page (maybe highlight component missing in red)
+
                 // Check if category is blank and create object
                 if (categoryView.getText().toString().equals("")) {
                     myTask = new Task(taskView.getText().toString(), new String("misc"), curDate);
@@ -104,13 +108,8 @@ public class TaskFrag extends Fragment {
                 // A toast then triggers everytime we add a new task
                 Toast.makeText(getActivity().getApplicationContext(), "added item", LENGTH_SHORT).show();
 
-                // This changes the fragment to the list fragment, still needs to properly change to the fragment that called it
-                transaction = myact.getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, myact.list);
-                transaction.addToBackStack(null);
-
-                // Commit the transaction
-                transaction.commit();
+                // This changes the fragment to the fragment that created this fragment
+                getFragmentManager().popBackStack();
             }
         });
 
@@ -121,25 +120,30 @@ public class TaskFrag extends Fragment {
             public void onClick(View v) {
                 Task myTask;
 
+                // this portion is to get rid of an open keyboard once the "save" button is selected
+                View view = getActivity().getCurrentFocus();
+                hideKeyboardFrom(getActivity().getApplicationContext(), view);
+
                 // A toast then triggers every time we add a new item
                 Toast.makeText(getActivity().getApplicationContext(), "operation canceled", LENGTH_SHORT).show();
-                transaction = myact.getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, myact.list);
-                transaction.addToBackStack(null);
 
-                // Commit the transaction
-                transaction.commit();
-
+                // This changes the fragment to the fragment that created this fragment
+                getFragmentManager().popBackStack();
             }
         });
 
         return view;
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
         myact.setActionBarTitle("Task Update");
+
+        // resets the text fields when it is reloaded
+        taskView.setText("");
+        categoryView.setText("");
     }
 
 
