@@ -15,6 +15,13 @@ public class Task {
     private Date deadline;
     private Date dateCompleted;
 
+    Task(Task orig) {
+        this.what = orig.what;
+        this.category = orig.category;
+        this.deadline = orig.deadline;
+        this.dateCompleted = orig.dateCompleted;
+        this.completed = orig.completed;
+    }
 
     Task(String what, String category, Date deadline) {
         this.what = what;

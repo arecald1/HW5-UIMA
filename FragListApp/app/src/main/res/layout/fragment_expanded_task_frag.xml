@@ -9,7 +9,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TableRow android:gravity="center_horizontal">
-        <TextView android:text="Task Name" android:textSize="30sp"/>
+        <TextView android:id="@+id/task_name" android:text="Task Name" android:textSize="30sp"/>
     </TableRow>
     <TableRow android:gravity="center_horizontal">
 
@@ -27,7 +27,7 @@
         <Button android:id="@+id/mark_complete_btn" android:text="Mark Complete"/>
     </TableRow>
     <TableRow android:gravity="center_horizontal">
-        <TextView android:text="Category" android:textAlignment="center" android:textSize="30sp"/>
+        <TextView android:id="@+id/task_category" android:text="Category" android:textAlignment="center" android:textSize="30sp"/>
     </TableRow>
 
 </TableLayout>

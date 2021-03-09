@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -27,9 +29,13 @@ public class TodoListFrag extends Fragment {
 
     public static final int MENU_ITEM_EDITVIEW = Menu.FIRST;
     public static final int MENU_ITEM_DELETE = Menu.FIRST + 1;
+    public static final int MENU_ITEM_COPY = Menu.FIRST + 2;
 
     private ListView myTask;
     private MainActivity myact;
+
+    protected Fragment expandedTask;
+    private FragmentTransaction transaction;
 
     Context cntx;
 
@@ -40,6 +46,8 @@ public class TodoListFrag extends Fragment {
         // Inflate the layout for this fragment
         View myview = inflater.inflate(R.layout.list_frag, container, false);
         ((MainActivity) getActivity()).setActionBarTitle("Current Tasks");
+
+        expandedTask = new expandedTaskFrag();
 
         myact = (MainActivity) getActivity();
         cntx = getActivity().getApplicationContext();
@@ -57,7 +65,11 @@ public class TodoListFrag extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Snackbar.make(view, "Selected #" + id, Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
-                                                                                                    //Add here to show expanded task card
+
+                transaction = getFragmentManager().beginTransaction();                      //Add here to show expanded task card
+                transaction.replace(R.id.fragment_container, expandedTask, "EXPANDTASK");
+                transaction.addToBackStack("EXPANDTASK");
+                transaction.commit();
             }
         });
 
@@ -77,6 +89,8 @@ public class TodoListFrag extends Fragment {
         // Add menu items
         menu.add(0, MENU_ITEM_EDITVIEW, 0, R.string.menu_editview);
         menu.add(0, MENU_ITEM_DELETE, 0, R.string.menu_delete);
+        menu.add(0, MENU_ITEM_COPY, 0, "Copy");
+
     }
 
     @Override
@@ -101,6 +115,13 @@ public class TodoListFrag extends Fragment {
                 // refresh view
                 myact.aa.notifyDataSetChanged();
                 return true;
+            }
+            case MENU_ITEM_COPY: {
+                Task copy = new Task(myact.myTasks.get(index));
+                myact.myTasks.add(copy);
+
+                myact.aa.notifyDataSetChanged();
+                return false;
             }
         }
         return false;
