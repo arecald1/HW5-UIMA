@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity
         list = new TodoListFrag();
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, list).commit();
+                .add(R.id.fragment_container, list, "TODO").commit();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds Tasks to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        //task.setHasOptionsMenu(false);
         return true;
     }
 
@@ -113,8 +114,8 @@ public class MainActivity extends AppCompatActivity
 
             // Replace whatever is in the fragment_container view with this fragment,
             // and add the transaction to the back stack so the user can navigate back
-            transaction.replace(R.id.fragment_container, this.task);
-            transaction.addToBackStack(null);
+            transaction.replace(R.id.fragment_container, this.task, "UPDATE");
+            transaction.addToBackStack("UPDATE");
 
             // Commit the transaction
             transaction.commit();
@@ -126,8 +127,8 @@ public class MainActivity extends AppCompatActivity
 
             // Replace whatever is in the fragment_container view with this fragment,
             // and add the transaction to the back stack so the user can navigate back
-            transaction.replace(R.id.fragment_container, list);
-            transaction.addToBackStack(null);
+            transaction.replace(R.id.fragment_container, list, "TODO");
+            transaction.addToBackStack("TODO");
 
             // Commit the transaction
             transaction.commit();
