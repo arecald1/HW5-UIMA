@@ -40,6 +40,7 @@ public class expandedTaskFrag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "expandedTaskFrag: Created");
 
         myact = (MainActivity) getActivity();
         bundle = this.getArguments();
@@ -53,7 +54,12 @@ public class expandedTaskFrag extends Fragment {
 
         markComplete = (Button) view.findViewById(R.id.mark_complete_btn); //mark task complete
 
-        temp = myact.myTasks.get(taskPosition); //works
+        if (bundle.getString("From").equals("TODO")) {
+            temp = myact.myTasks.get(taskPosition); //works
+        } else if (bundle.getString("From").equals("DONE")) {
+            temp = myact.completedTasks.get(taskPosition);
+        }
+
 
         String taskName = temp.getWhat(); //populate all textViews
 
@@ -70,13 +76,14 @@ public class expandedTaskFrag extends Fragment {
                 @Override
                 public void onClick(View v) {
                     temp.setComplete();
-                    //myact.completedTasks.add(temp);                                           //UNCOMMENT THESE
-                    //myact.myTasks.remove(temp);                                               //TWO LINES
+                    myact.completedTasks.add(temp);
+                    myact.myTasks.remove(temp);
 
                     taskView.setText("COMPLETE");   //REMOVE
                     myact.aa.notifyDataSetChanged();
 
                     completeDateRow(view);
+                    getFragmentManager().popBackStack();
                 }
             });
         }
@@ -84,7 +91,7 @@ public class expandedTaskFrag extends Fragment {
         return view;
     }
 
-    //if the task is already completed or if it is marked compelete
+    //if the task is already completed or if it is marked complete
     public void completeDateRow(View view) {
         completeView = (TableRow) view.findViewById(R.id.complete_row);
         completeView.setVisibility(View.VISIBLE);
