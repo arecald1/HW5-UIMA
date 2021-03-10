@@ -26,6 +26,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import static android.widget.Toast.LENGTH_SHORT;
+import static android.widget.Toast.LENGTH_LONG;
 
 public class TaskFrag extends Fragment {
 
@@ -89,7 +90,14 @@ public class TaskFrag extends Fragment {
             public void onClick(View v) {
                 Task myTask;
 
-                // Check all fields here with if statement and provide toast with error, and keep them on this page (maybe highlight component missing in red)
+                // Check all fields here with if statement and provide toast with error, and keep them on this page
+                if (taskView.getText().toString().isEmpty()) {
+                    Toast.makeText(getActivity().getApplicationContext(), "Task Name cannot be left empty", LENGTH_LONG).show();
+                    return;
+                } else if (curDate == null) {
+                    Toast.makeText(getActivity().getApplicationContext(), "Deadline Date must be selected", LENGTH_LONG).show();
+                    return;
+                }
 
                 // Check if category is blank and create object
                 if (categoryView.getText().toString().equals("")) {
