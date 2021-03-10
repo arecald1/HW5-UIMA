@@ -68,6 +68,7 @@ public class TodoListFrag extends Fragment {
 
                 Bundle bundle = new Bundle();
                 bundle.putInt("taskPosition", position);
+                bundle.putString("From", "TODO");
                 expandedTask.setArguments(bundle);
 
                 transaction = getFragmentManager().beginTransaction();                      //Add here to show expanded task card
