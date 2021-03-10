@@ -7,8 +7,11 @@
                 android:id="@+id/item_frag"
                 android:title="Add/Update (temp)" />
             <item
-                android:id="@+id/list_frag"
+                android:id="@+id/todo_frag"
                 android:title="@string/menu_todo" />
+            <item
+                android:id="@+id/done_frag"
+                android:title="@string/menu_done" />
         </menu>
     </item>
 
