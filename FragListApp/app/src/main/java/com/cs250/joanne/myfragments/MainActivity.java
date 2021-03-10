@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity
     protected Fragment task;
     protected Fragment list;
     protected Fragment doneList;
+    protected Fragment statsPage;
+
     private FragmentTransaction transaction;
     protected TaskAdapter aa;
     protected TaskAdapter completedAdapter;
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity
         task = new TaskFrag();
         list = new TodoListFrag();
         doneList = new DoneListFrag();
+        statsPage = new StatsFrag();
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, list, "TODO").commit();
@@ -63,7 +66,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
-
 
     @Override
     public void onBackPressed() {
@@ -148,6 +150,12 @@ public class MainActivity extends AppCompatActivity
             transaction.addToBackStack("DONE");
 
             // Commit the transaction
+            transaction.commit();
+        } else if (id == R.id.stats_frag) {
+            transaction = getSupportFragmentManager().beginTransaction();
+
+            transaction.replace(R.id.fragment_container, statsPage, "STATS");
+            transaction.addToBackStack("STATS");
             transaction.commit();
         }
 

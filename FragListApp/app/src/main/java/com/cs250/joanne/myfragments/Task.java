@@ -17,7 +17,7 @@ public class Task {
     private Date dateCompleted;
 
     Task(Task orig) {
-        this.what = orig.what;
+        this.what = "(Copy) " + orig.what;
         this.category = orig.category;
         this.deadline = orig.deadline;
         this.dateCompleted = orig.dateCompleted;

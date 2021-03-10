@@ -12,6 +12,10 @@
             <item
                 android:id="@+id/done_frag"
                 android:title="@string/menu_done" />
+
+            <item
+                android:id="@+id/stats_frag"
+                android:title="STATS" />
         </menu>
     </item>
 

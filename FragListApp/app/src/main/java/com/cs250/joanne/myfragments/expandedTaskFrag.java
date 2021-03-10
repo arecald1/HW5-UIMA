@@ -79,7 +79,6 @@ public class expandedTaskFrag extends Fragment {
                     myact.completedTasks.add(temp);
                     myact.myTasks.remove(temp);
 
-                    taskView.setText("COMPLETE");   //REMOVE
                     myact.aa.notifyDataSetChanged();
 
                     completeDateRow(view);

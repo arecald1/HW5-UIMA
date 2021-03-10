@@ -35,6 +35,7 @@ public class TodoListFrag extends Fragment {
     private MainActivity myact;
 
     protected Fragment expandedTask;
+    protected Fragment editTask;
     private FragmentTransaction transaction;
 
     Context cntx;
@@ -111,6 +112,8 @@ public class TodoListFrag extends Fragment {
 
                 Toast.makeText(cntx, "edit request",
                         Toast.LENGTH_SHORT).show();
+
+
                 return false;
             }
             case MENU_ITEM_DELETE: {
