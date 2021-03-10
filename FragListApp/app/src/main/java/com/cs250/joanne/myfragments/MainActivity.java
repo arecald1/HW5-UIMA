@@ -20,8 +20,10 @@ public class MainActivity extends AppCompatActivity
     // These are all here for demonstration purposes but we probably only need the ArrayList in main(?)
     protected Fragment task;
     protected Fragment list;
+    protected Fragment doneList;
     private FragmentTransaction transaction;
     protected TaskAdapter aa;
+    protected TaskAdapter completedAdapter;
     protected ArrayList<Task> myTasks;
     protected ArrayList<Task> completedTasks; // Protected so it has package access (our fragments can access it as well)
 
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity
         // we connect them here but we don't actually do anything past this here (because the main
         // interaction happens in our fragments
         aa = new TaskAdapter(this, R.layout.item_layout, myTasks);
+        completedAdapter = new TaskAdapter(this, R.layout.item_layout, completedTasks);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity
         // Task and list are created from their respective constructors here
         task = new TaskFrag();
         list = new TodoListFrag();
+        doneList = new DoneListFrag();
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, list, "TODO").commit();
@@ -120,7 +124,7 @@ public class MainActivity extends AppCompatActivity
             // Commit the transaction
             transaction.commit();
 
-        } else if (id == R.id.list_frag) {
+        } else if (id == R.id.todo_frag) {
             //getSupportActionBar().setTitle("Current Tasks:");
 
             transaction = getSupportFragmentManager().beginTransaction();
@@ -129,6 +133,19 @@ public class MainActivity extends AppCompatActivity
             // and add the transaction to the back stack so the user can navigate back
             transaction.replace(R.id.fragment_container, list, "TODO");
             transaction.addToBackStack("TODO");
+
+            // Commit the transaction
+            transaction.commit();
+
+        } else if (id == R.id.done_frag) {
+            //getSupportActionBar().setTitle("Current Tasks:");
+
+            transaction = getSupportFragmentManager().beginTransaction();
+
+            // Replace whatever is in the fragment_container view with this fragment,
+            // and add the transaction to the back stack so the user can navigate back
+            transaction.replace(R.id.fragment_container, doneList, "DONE");
+            transaction.addToBackStack("DONE");
 
             // Commit the transaction
             transaction.commit();
