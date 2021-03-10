@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".expandedTaskFrag"
-    android:weightSum="100">
+    android:weightSum="100"
+    android:background="@android:color/transparent">
 
     <!-- TODO: Update blank fragment layout -->
     <TableRow android:gravity="center_horizontal">

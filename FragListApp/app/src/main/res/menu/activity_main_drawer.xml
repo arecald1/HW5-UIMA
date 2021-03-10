@@ -5,7 +5,8 @@
         <menu>
             <item
                 android:id="@+id/item_frag"
-                android:title="Add/Update (temp)" />
+                android:title="Add/Update (temp)"
+                android:visible="false"/>
             <item
                 android:id="@+id/todo_frag"
                 android:title="@string/menu_todo" />
