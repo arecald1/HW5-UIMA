@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -41,6 +42,7 @@ public class TaskFrag extends Fragment {
     private Button save;
     private Button cancel;
     private MainActivity myact;
+    private Bundle editTaskInfo;
 
     public TaskFrag() {
     }
@@ -78,7 +80,8 @@ public class TaskFrag extends Fragment {
         onDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                curDate = new Date(year, month, dayOfMonth);
+                // we subtract -1900 because the Date constructor adds 1900 to the year
+                curDate = new Date(year - 1900, month, dayOfMonth);
                 mDisplayDate.setText(month + 1 + "/" + dayOfMonth + "/" + year);
             }
         };
@@ -89,6 +92,10 @@ public class TaskFrag extends Fragment {
             @Override
             public void onClick(View v) {
                 Task myTask;
+
+                // This gets rid of an open keyboard once the "save" button is selected
+                View view = getActivity().getCurrentFocus();
+                hideKeyboardFrom(getActivity().getApplicationContext(), view);
 
                 // Check all fields here with if statement and provide toast with error, and keep them on this page
                 if (taskView.getText().toString().isEmpty()) {
@@ -106,15 +113,32 @@ public class TaskFrag extends Fragment {
                     myTask = new Task(taskView.getText().toString(), categoryView.getText().toString(), curDate);
                 }
 
-                // Then go from my activity to myTasks and add the new object to the list
-                myact.myTasks.add(myTask);
+                String toastOutput;
+                Task updatedTask;
 
-                // this portion is to get rid of an open keyboard once the "save" button is selected
-                View view = getActivity().getCurrentFocus();
-                hideKeyboardFrom(getActivity().getApplicationContext(), view);
+                // If this frag was triggered from using plus symbol in action bar, add task to myTasks
+                // if it was triggered by trying to edit a task, make sure to update target task instead
+                if (editTaskInfo.getString("From").equals("add")) {
+                    // Then go from my activity to myTasks and add the new object to the list
+                    myact.myTasks.add(myTask);
+                    toastOutput = "Added item to current task list";
+                } else {
+                    // Get the correct task from the correct list
+                    if (editTaskInfo.getString("From").equals("TODO")) {
+                        updatedTask = myact.myTasks.get(editTaskInfo.getInt("position"));
+                    } else {
+                        updatedTask = myact.completedTasks.get(editTaskInfo.getInt("position"));
+                    }
+
+                    // Update the target task Object (this updates it in whatever view/list we show it in later
+                    updatedTask.setWhat(myTask.getWhat());
+                    updatedTask.setCategory(myTask.getCategory());
+                    updatedTask.setDeadline(myTask.getDeadline());
+                    toastOutput = "Task Updated";
+                }
 
                 // A toast then triggers everytime we add a new task
-                Toast.makeText(getActivity().getApplicationContext(), "added item", LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), toastOutput, LENGTH_SHORT).show();
 
                 // This changes the fragment to the fragment that created this fragment
                 getFragmentManager().popBackStack();
@@ -149,9 +173,23 @@ public class TaskFrag extends Fragment {
         super.onResume();
         myact.setActionBarTitle("Task Update");
 
-        // resets the text fields when it is reloaded
-        taskView.setText("");
-        categoryView.setText("");
+        editTaskInfo = this.getArguments();
+
+        // This gets the bundle sent from a fragment to see whether or not the fields
+        // need to be filled in (because the user is trying to edit a task vs add a task)
+        if (editTaskInfo.getString("From").equals("add")) {
+            // resets the text fields when it is reloaded
+            taskView.setText("");
+            categoryView.setText("");
+        } else {
+            // Sets all the fields to match the task we are trying to edit
+            taskView.setText(editTaskInfo.getString("name"));
+            categoryView.setText(editTaskInfo.getString("category"));
+            int year = editTaskInfo.getInt("year");
+            int month = editTaskInfo.getInt("month");
+            int day = editTaskInfo.getInt("day");
+            mDisplayDate.setText(month + 1 + "/" + day + "/" + (year + 1900));
+        }
     }
 
 

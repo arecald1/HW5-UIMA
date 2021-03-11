@@ -86,8 +86,6 @@ public class TodoListFrag extends Fragment {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
-        // usually context menus do not change so it does not need to be made dynamically,
-        // however, Joanne mentioned that she wanted a more programmatic example for us to see
         super.onCreateContextMenu(menu, v, menuInfo);
         // create menu in code instead of in xml file (xml approach preferred)
         menu.setHeaderTitle("Select Item");
@@ -114,6 +112,33 @@ public class TodoListFrag extends Fragment {
                         Toast.LENGTH_SHORT).show();
 
 
+                // Get target task we need to edit
+                Task taskOut = myact.myTasks.get(index);
+
+                // Send the task fragment all the information of the selected task as well as the fragment its coming from
+                Bundle toUpdateTask = new Bundle();
+                toUpdateTask.putString("name", taskOut.getWhat());
+                toUpdateTask.putString("category", taskOut.getCategory());
+                toUpdateTask.putInt("year", taskOut.getDeadline().getYear());
+                toUpdateTask.putInt("month", taskOut.getDeadline().getMonth());
+                toUpdateTask.putInt("day", taskOut.getDeadline().getDate());
+                toUpdateTask.putInt("position", index);
+                toUpdateTask.putString("From", "TODO");
+
+                // Attach this bundle to the target fragment we are calling
+                myact.task.setArguments(toUpdateTask);
+
+                // Switch to the edit task fragment
+                transaction = myact.getSupportFragmentManager().beginTransaction();
+
+                // Replace whatever is in the fragment_container view with this fragment,
+                // and add the transaction to the back stack so the user can navigate back
+                transaction.replace(R.id.fragment_container, myact.task, "UPDATE");
+                transaction.addToBackStack("UPDATE");
+
+                // Commit the transaction
+                transaction.commit();
+
                 return false;
             }
             case MENU_ITEM_DELETE: {
@@ -127,6 +152,8 @@ public class TodoListFrag extends Fragment {
             case MENU_ITEM_COPY: {
                 Task copy = new Task(myact.myTasks.get(index));
                 myact.myTasks.add(copy);
+                // make sure to sort the list after adding the copy
+                Collections.sort(myact.myTasks, new TaskComparator());
                 // refresh view
                 myact.aa.notifyDataSetChanged();
                 return false;
