@@ -37,6 +37,18 @@ public class Task {
     public Date getDeadline() { return deadline; }
     public Date getCompleteDate() { return dateCompleted; }
 
+    public void setWhat(String name) {
+        this.what = name;
+    }
+
+    public void setCategory(String cat) {
+        this.category = cat;
+    }
+
+    public void setDeadline(Date date) {
+        this.deadline = date;
+    }
+
     public void setComplete() {
         this.completed = true;
         dateCompleted = new Date();
