@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity
         // create ArrayList of Tasks
         myTasks = new ArrayList<Task>();
         completedTasks = new ArrayList<Task>();
+        createDefaultTaskLists();
         // make array adapter to bind arraylist to listview with custom Task layout
         // we connect them here but we don't actually do anything past this here (because the main
         // interaction happens in our fragments
@@ -94,6 +97,10 @@ public class MainActivity extends AppCompatActivity
 
         // if the user clicked on the plus, take them to add new task screen
         if (id == R.id.add_task) {
+            Bundle add = new Bundle();
+            add.putString("From", "add");
+            task.setArguments(add);
+
             transaction = getSupportFragmentManager().beginTransaction();
 
             // Replace whatever is in the fragment_container view with this fragment,
@@ -115,20 +122,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.item_frag) {
-            transaction = getSupportFragmentManager().beginTransaction();
-
-            // Replace whatever is in the fragment_container view with this fragment,
-            // and add the transaction to the back stack so the user can navigate back
-            transaction.replace(R.id.fragment_container, this.task, "UPDATE");
-            transaction.addToBackStack("UPDATE");
-
-            // Commit the transaction
-            transaction.commit();
-
-        } else if (id == R.id.todo_frag) {
-            //getSupportActionBar().setTitle("Current Tasks:");
-
+        if (id == R.id.todo_frag) {
             transaction = getSupportFragmentManager().beginTransaction();
 
             // Replace whatever is in the fragment_container view with this fragment,
@@ -140,8 +134,6 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();
 
         } else if (id == R.id.done_frag) {
-            //getSupportActionBar().setTitle("Current Tasks:");
-
             transaction = getSupportFragmentManager().beginTransaction();
 
             // Replace whatever is in the fragment_container view with this fragment,
@@ -168,6 +160,18 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setTitle(title);
     }
 
+    // Creates a default list of tasks in the TODO and DONE page
+    private void createDefaultTaskLists() {
+        // year 121 = 2021 because for some reason, the constructor add 1900 to the year, thus 123 = 2023
+        myTasks.add(new Task("task 1", "earliest", new Date(121, 1, 11)));
+        myTasks.add(new Task("task 3", "latest", new Date(123, 2, 2)));
+        myTasks.add(new Task("task 2", "misc", new Date()));
 
+        Task completed = new Task("task 0", "started complete", new Date(2017, 7, 28));
+        completed.setComplete();
+        completedTasks.add(completed);
+
+        Collections.sort(myTasks, new TaskComparator());
+    }
 
 }
