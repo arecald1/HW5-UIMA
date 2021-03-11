@@ -1,5 +1,7 @@
 package com.cs250.joanne.myfragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -9,6 +11,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -26,6 +30,7 @@ public class MainActivity extends AppCompatActivity
     protected Fragment statsPage;
 
     private FragmentTransaction transaction;
+
     protected TaskAdapter aa;
     protected TaskAdapter completedAdapter;
     protected ArrayList<Task> myTasks;

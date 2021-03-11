@@ -1,6 +1,7 @@
 package com.cs250.joanne.myfragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
 
 import static android.content.ContentValues.TAG;
 
@@ -38,6 +41,8 @@ public class expandedTaskFrag extends Fragment {
     private Button markComplete;
 
     private MainActivity myact;
+    private SharedPreferences expandedPrefs;
+    private SharedPreferences.Editor expanedPeditor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,6 +94,9 @@ public class expandedTaskFrag extends Fragment {
 
                     myact.aa.notifyDataSetChanged();
 
+                    //Check deadline vs completed date for stats
+                    checkDeadlineComplete();
+
                     completeDateRow(view);
                     getFragmentManager().popBackStack();
                 }
@@ -109,5 +117,25 @@ public class expandedTaskFrag extends Fragment {
         markComplete.setVisibility(View.GONE);
 
         Log.d(TAG, "completeDateRow: end of method");
+    }
+
+    public void checkDeadlineComplete() {
+        expandedPrefs = getActivity().getPreferences(Context.MODE_PRIVATE);
+        expanedPeditor = expandedPrefs.edit();
+
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+        int status = fmt.format(temp.getCompleteDate()).compareTo(fmt.format(temp.getDeadline()));
+        Log.d(TAG, "checkDeadlineComplete: status: " + status +  "\nCompletionDate: " + temp.getCompleteDate() + "\ndeadine: " + temp.getDeadline());
+
+        if (status < 0) {
+            int doneAfter = expandedPrefs.getInt("doneAfterDeadline", 0);
+            expanedPeditor.putInt("doneAfterDeadline", ++doneAfter);
+            Log.d(TAG, "checkDeadlineComplete: doneBy: " + doneAfter);
+        } else {
+            int doneBy = expandedPrefs.getInt("doneByDeadline", 0);
+            expanedPeditor.putInt("doneByDeadline", ++doneBy);
+            Log.d(TAG, "checkDeadlineComplete: doneBy: " + doneBy);
+        }
+        expanedPeditor.apply();
     }
 }

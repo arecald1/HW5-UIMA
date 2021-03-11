@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -82,6 +83,7 @@ public class TaskFrag extends Fragment {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 // we subtract -1900 because the Date constructor adds 1900 to the year
                 curDate = new Date(year - 1900, month, dayOfMonth);
+
                 mDisplayDate.setText(month + 1 + "/" + dayOfMonth + "/" + year);
             }
         };
