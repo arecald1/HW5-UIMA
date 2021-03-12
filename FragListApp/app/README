@@ -1,0 +1,9 @@
+Alejandro Rodriguez - arodri75
+Andres Recaldo - arecald1
+
+We focused on adding all functionality required by the app.
+We implemented our own design changes into the app based on what we thought was intuitive such as
+making the taskUpdate a separate fragment.
+
+We also tried to reuse as much code as possible such as in the expandedTaskFrag class where we were
+able to avoid using two fragments (uncomplete and complete) by selectively choosing widget visibilities.

@@ -202,16 +202,6 @@ public class TaskFrag extends Fragment {
         }
     }
 
-//    @Override
-//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-//
-//        menu.findItem(R.id.item_frag).setVisible(false);
-//        menu.findItem(R.id.todo_frag).setVisible(false);
-//        menu.findItem(R.id.stats_frag).setVisible(false);
-//
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-
     public static void hideKeyboardFrom(Context context, View view) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);

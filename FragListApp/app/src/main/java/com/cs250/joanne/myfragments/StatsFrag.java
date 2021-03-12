@@ -60,7 +60,7 @@ public class StatsFrag extends Fragment {
         statsPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         statsPeditor = statsPref.edit();
 
-        numBefore = statsPref.getInt("doneByDeadline", 0);
+        numBefore = statsPref.getInt("doneByDeadline", 1); //needs to be 1 because of default completed task
         numAfter = statsPref.getInt("doneAfterDeadline", 0);
 
         viewDoneBy.setText("" + numBefore);
