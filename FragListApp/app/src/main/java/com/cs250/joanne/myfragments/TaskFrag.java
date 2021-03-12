@@ -7,6 +7,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -21,6 +23,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -57,6 +60,11 @@ public class TaskFrag extends Fragment {
         View view = inflater.inflate(R.layout.item_frag, container, false);
 
         myact = (MainActivity) getActivity();
+        myact.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.taskUpdateColor)));
+
+        //setHasOptionsMenu(true);
+        //this.setMenuVisibility(false);
+        //myact.toolbar.setNavigationIcon(null);
 
         taskView = (EditText) view.findViewById(R.id.item_text);
         categoryView = (EditText) view.findViewById(R.id.task_category);
@@ -194,6 +202,15 @@ public class TaskFrag extends Fragment {
         }
     }
 
+//    @Override
+//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+//
+//        menu.findItem(R.id.item_frag).setVisible(false);
+//        menu.findItem(R.id.todo_frag).setVisible(false);
+//        menu.findItem(R.id.stats_frag).setVisible(false);
+//
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
 
     public static void hideKeyboardFrom(Context context, View view) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);

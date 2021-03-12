@@ -1,6 +1,7 @@
 package com.cs250.joanne.myfragments;
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -44,6 +45,8 @@ public class DoneListFrag extends Fragment {
 
         myact = (MainActivity) getActivity();
         cntx = getActivity().getApplicationContext();
+
+        myact.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.completeColor)));
 
         // Get the ListView
         completedTask = (ListView) myview.findViewById(R.id.mylist);

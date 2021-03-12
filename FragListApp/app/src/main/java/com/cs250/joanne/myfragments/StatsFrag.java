@@ -2,6 +2,7 @@ package com.cs250.joanne.myfragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -45,6 +46,11 @@ public class StatsFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stats, container, false);
+
+
+        myact = (MainActivity) getActivity();
+        myact.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.statsColor)));
+
         viewDoneBy = (TextView) view.findViewById(R.id.done_by_deadline);
         viewDoneAfter = (TextView) view.findViewById(R.id.done_after_deadline);
         viewPastDue = (TextView) view.findViewById(R.id.past_due);
@@ -53,7 +59,6 @@ public class StatsFrag extends Fragment {
 
         statsPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         statsPeditor = statsPref.edit();
-        myact = (MainActivity) getActivity();
 
         numBefore = statsPref.getInt("doneByDeadline", 0);
         numAfter = statsPref.getInt("doneAfterDeadline", 0);

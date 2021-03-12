@@ -19,9 +19,9 @@
             android:textSize="40sp" />
         <TextView
             android:text=" done by deadline"
-            android:textSize="40sp"/>
+            android:textSize="35sp"/>
     </TableRow>
-    <TableRow android:layout_weight="1.0" android:gravity="center_vertical">
+    <TableRow  android:layout_weight="1.0" android:gravity="center_vertical">
 
         <TextView
             android:id="@+id/done_after_deadline"
@@ -29,7 +29,7 @@
             android:text="0"
             android:textAlignment="center"
             android:textSize="40sp" />
-        <TextView android:text=" done after due" android:textSize="40sp"/>
+        <TextView  android:text=" done after due" android:textSize="35sp"/>
     </TableRow>
 
     <TableRow>
@@ -46,7 +46,7 @@
             android:text="0"
             android:textAlignment="center"
             android:textSize="40sp" />
-        <TextView android:text="past due" android:textSize="40sp"/>
+        <TextView android:paddingLeft="10sp" android:text="past due" android:textSize="35sp"/>
     </TableRow>
 
     <TableRow android:layout_weight="1.0" android:gravity="center_vertical">
@@ -56,7 +56,7 @@
             android:text="0"
             android:textAlignment="center"
             android:textSize="40sp" />
-        <TextView android:text="to be done" android:textSize="40sp"/>
+        <TextView android:paddingLeft="10sp" android:text="to be done" android:textSize="35sp"/>
     </TableRow>
 
     <TableRow>
@@ -73,7 +73,7 @@
             android:text="0"
             android:textAlignment="center"
             android:textSize="40sp" />
-        <TextView android:text="Total Tasks" android:textSize="40sp"/>
+        <TextView android:paddingLeft="10sp" android:text="Total Tasks" android:textSize="40sp"/>
     </TableRow>
 
 </TableLayout>

@@ -4,6 +4,7 @@ package com.cs250.joanne.myfragments;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -53,6 +54,8 @@ public class TodoListFrag extends Fragment {
         myact = (MainActivity) getActivity();
         cntx = getActivity().getApplicationContext();
 
+        myact.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
+
         // Get the ListView
         myTask = (ListView) myview.findViewById(R.id.mylist);
         // connect listview to the array adapter in MainActivity (aa in MainActivity)
@@ -64,7 +67,7 @@ public class TodoListFrag extends Fragment {
         // program a short click on the list item - mainly programming the snackbar
         myTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Snackbar.make(view, "Selected #" + id, Snackbar.LENGTH_SHORT)
+                Snackbar.make(view, "Selected Task " + (id + 1), Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
 
                 Bundle bundle = new Bundle();
@@ -108,7 +111,7 @@ public class TodoListFrag extends Fragment {
         switch (item.getItemId()) {
             case MENU_ITEM_EDITVIEW: {
 
-                Toast.makeText(cntx, "edit request",
+                Toast.makeText(cntx, "edit task " + (index + 1),
                         Toast.LENGTH_SHORT).show();
 
 
@@ -143,7 +146,7 @@ public class TodoListFrag extends Fragment {
             }
             case MENU_ITEM_DELETE: {
                 myact.myTasks.remove(index);
-                Toast.makeText(cntx, "job " + index + " deleted",
+                Toast.makeText(cntx, "task " + (index  + 1) + " deleted",
                         Toast.LENGTH_SHORT).show();
                 // refresh view
                 myact.aa.notifyDataSetChanged();
@@ -154,6 +157,9 @@ public class TodoListFrag extends Fragment {
                 myact.myTasks.add(copy);
                 // make sure to sort the list after adding the copy
                 Collections.sort(myact.myTasks, new TaskComparator());
+                //toast
+                Toast.makeText(cntx, "task " + (index  + 1) + " copied",
+                        Toast.LENGTH_SHORT).show();
                 // refresh view
                 myact.aa.notifyDataSetChanged();
                 return false;

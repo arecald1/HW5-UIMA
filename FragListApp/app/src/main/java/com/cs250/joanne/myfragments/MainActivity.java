@@ -2,6 +2,8 @@ package com.cs250.joanne.myfragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -34,7 +36,9 @@ public class MainActivity extends AppCompatActivity
     protected TaskAdapter aa;
     protected TaskAdapter completedAdapter;
     protected ArrayList<Task> myTasks;
-    protected ArrayList<Task> completedTasks; // Protected so it has package access (our fragments can access it as well)
+    protected ArrayList<Task> completedTasks;
+    protected Toolbar toolbar;
+    protected Drawable navIcon;// Protected so it has package access (our fragments can access it as well)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +47,11 @@ public class MainActivity extends AppCompatActivity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        this.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
 
         // create ArrayList of Tasks
         myTasks = new ArrayList<Task>();
